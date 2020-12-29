@@ -1,10 +1,10 @@
 def printBoard(toPrint):
     letters = "ABCDEFGHI"
     print("  A B C D E F G H I")
-    for x in range(0,len(toPrint)):
+    for x in range(9):
         print(letters[x:x+1], end = ' ')
-        for y in range(0,len(toPrint[x])):
-            print(toPrint[x][y], end ='')
+        for y in range(9):
+            print(toPrint[x,y], end ='')
             print(" ", end = '')
         print("")
 
@@ -12,17 +12,10 @@ def printBoard(toPrint):
 print("Welcome to Pydoku")
 play = True
 while play:
-    board = [[0]*9]*9
+    board = { (i,j):0 for i in range(9) for j in range(9) }
     print(board)
     printBoard(board)
     
-    print(board[2], end = "\n\n")
-    board[2][7] = 9
-    print(board[2], end = "\n\n")
-    print(board[1], end = "\n\n")
-    print(board)
-    printBoard(board)
-
 
 
 
