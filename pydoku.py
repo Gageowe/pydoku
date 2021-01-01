@@ -3,22 +3,38 @@ from math import floor,ceil
 
 Alpha = { "A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, "G": 6, "H" : 7, "I": 8}
 board = { (i,j):0 for i in range(9) for j in range(9) }
-
 def genBoard():
+    place = 0
+    key = {}
+    for x in board:
+        key[place] = x
+        place = place + 1
+    numList = list(range(0,81))
     outBoard = {(i,j):0 for i in range(9) for j in range(9)}
-    for i in range(9):
+    
+    for i in range(1,10):
+        noCell =[]
+        ii = 0
         noX = []
         noY = []
-        noCell =[]
-        for ii in range(9):
-            x = randint(0,8)
-            y = randint(0,8)
-            cell = (int((x-1) / 3 + 1) + (int((y-1))/ 3) * 3)
+        while ii < 9:
+            value = numList[randint(0,len(numList) -1)]
+            
+            cell = (int(value/27)* 3 + int((value % 9)/3) + 1)
+            x = value % 9
+            y = int(value / 9)
+            print("\nnumList: ", numList)
+            print("noCell: ", noCell)
+            print("cell: ", cell)
+            print("ii: ", ii)
+            print("i: ", i)
             if not (x in noX or y in noY or cell in noCell):
-                noX.append(x)
-                noY.append(y)
+                numList.remove(value)
                 noCell.append(cell)
-                outBoard[x,y] = i
+                noX.append(x)
+                noY.append(x)
+                ii = ii + 1
+                outBoard[key[value]] = i
     return outBoard
 
 def printBoard(toPrint):
