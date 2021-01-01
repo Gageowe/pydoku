@@ -3,6 +3,43 @@ from math import floor,ceil
 
 Alpha = { "A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "F" : 5, "G": 6, "H" : 7, "I": 8}
 board = { (i,j):0 for i in range(9) for j in range(9) }
+
+def genBoard2():
+    rows = []
+    for y in range(9):
+        rows.append(list(range(9)))
+    outBoard = {(i,j):0 for i in range(9) for j in range(9)}
+    spaces = list(range(81)) # spaces to fill
+    for i in range(1,10): #specifies number
+        #col = list(range(9)) #indicates columns to fill
+        #row = list(range(9)) #indicates rows to fill
+        #cell  = list(range(9)) # indicates cells to fill
+        toFill = list(set(spaces)) #specifies available spaces to fill, must be in col, in row, in cell, and in spaces
+        for ii in range(9): #need 9 of each number
+                value = toFill[randint(0,len(toFill)-1)]
+                x = value % 9
+                y = int(value / 9)
+                outBoard[y,x] = i
+                print("\ntoFill: ", toFill,"\nspaces: ", spaces, "\nii: ", ii, "\ni: ", i, "\nvalue: ", value)
+                printBoard(outBoard)
+                spaces.remove(value)
+                #col.remove(x)
+                #row.remove(y)
+                cel = int(value/27)*3 + int((value%9)/3)
+                print(cel)
+                #cell.remove(cel)
+                toRemove = []
+                for item in toFill:
+                    #print(toFill)
+                    #print(item)
+                    if item % 9 == x or int(item/9) == y or (int(item/27) * 3 + int((item%9)/3)) == cel:
+                        toRemove.append(item)
+                print('\ntoRemove: ', toRemove)
+                for item in toRemove:
+                    toFill.remove(item)
+                
+    return outBoard
+
 def genBoard():
     place = 0
     key = {}
@@ -56,7 +93,7 @@ def checkboard(x,y,val, refBoard):
 print("Welcome to Pydoku")
 play = True
 while play:
-    correctBoard = genBoard()
+    correctBoard = genBoard2()
     playerBoard = { (i,j):0 for i in range(9) for j in range(9) }
     print('Correct Board: \n')
     printBoard(correctBoard)
